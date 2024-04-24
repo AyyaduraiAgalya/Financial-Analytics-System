@@ -10,7 +10,7 @@ def fetch_forex_data(api_key):
     """Fetches and returns historical daily forex data for EUR/USD from the OANDA API.
 
     Args:
-        api_key (str): OANDA API key for authorization.
+        api_key (str): OANDA API key for authorisation.
 
     Returns:
         pd.DataFrame: Dataframe containing the time and close prices for EUR/USD.
