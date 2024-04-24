@@ -35,13 +35,29 @@ def fetch_forex_data(api_key):
     # Extract prices and times into a DataFrame
     prices = [{'time': x['time'], 'close': x['mid']['c']} for x in data['candles']]
 
-    # Convert the list of prices to a DataFrame, convert time to datetime, and set as index
+    # Convert the list of prices to a DataFrame,
     df = pd.DataFrame(prices)
-    df['time'] = pd.to_datetime(df['time'])
-    df.set_index('time', inplace=True)
 
     return df
 
+
+def clean_data(df):
+    """Cleans the fetched EURUSD data.
+
+    Args:
+        df (pd.DataFrame): The DataFrame containing EURUSD data.
+
+    Returns:
+        pd.DataFrame: The cleaned DataFrame.
+    """
+    # Convert time to datetime, and set as index
+    df['time'] = pd.to_datetime(df['time'])
+    df.set_index('time', inplace=True)
+    df['close'] = pd.to_numeric(df['close'], errors ='coerce') # Ensure 'close' is a float
+    df.drop_duplicates(inplace=True)
+    df.dropna(inplace=True) # Drop rows with any missing values
+
+    return df
 
 # Basic configuration for logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -52,5 +68,6 @@ if __name__ == "__main__":
     api_key = os.getenv('OANDA_API_KEY')  # Replace 'OANDA_API_KEY' with your actual OANDA API key stored in the .env file
     eurusd_data = fetch_forex_data(api_key)
     if eurusd_data is not None:
+        eurusd_data = clean_data(eurusd_data)
         logging.info(f'\n{eurusd_data.head()}')
 
