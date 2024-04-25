@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 import os
 import logging
 
-
 # Function to fetch EUR/USD data from OANDA API.
 def fetch_forex_data(api_key):
     """Fetches and returns historical daily forex data for EUR/USD from the OANDA API.
@@ -38,6 +37,10 @@ def fetch_forex_data(api_key):
     # Convert the list of prices to a DataFrame,
     df = pd.DataFrame(prices)
 
+    # Convert time to datetime, and set as index
+    df['time'] = pd.to_datetime(df['time'])
+    df.set_index('time', inplace=True)
+
     return df
 
 
@@ -50,9 +53,7 @@ def clean_data(df):
     Returns:
         pd.DataFrame: The cleaned DataFrame.
     """
-    # Convert time to datetime, and set as index
-    df['time'] = pd.to_datetime(df['time'])
-    df.set_index('time', inplace=True)
+
     df['close'] = pd.to_numeric(df['close'], errors ='coerce') # Ensure 'close' is a float
     df.drop_duplicates(inplace=True)
     df.dropna(inplace=True) # Drop rows with any missing values
