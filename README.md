@@ -25,6 +25,12 @@ The following key features are planned for implementation in this project. They 
 
 These features are in the planning stage and may evolve as the project progresses. Check back for updates as I advance through the development stages.
 
+## Documentation
+This project is documented thoroughly to ensure ease of use and scalability. Below are links to detailed documentation on various components of the project:
+
+- [AWS RDS Setup Guide](docs/AWS-RDS-Setup.md): Detailed setup and configuration information for the Amazon RDS instance used in this project.
+- [AWS S3 Setup Guide](docs/AWS-S3-Setup.md): Configuration details and security measures implemented for Amazon S3 storage used in the project.
+
 ## Getting Started
 
 This section will guide you through the process of setting up your local environment to run the Advanced Financial Analytics System. Follow these instructions to get started.
@@ -83,3 +89,25 @@ Once everything is set up, you can start the application by running:
 python app.py
 ```
 This will launch the application according to the configurations specified in your environment variables and `.env` file.
+
+## Contact
+- **Developer Contact**: As the sole developer and maintainer of this project, please direct any inquiries or feedback directly to me. You can reach me through my GitHub profile.
+
+## License
+
+This project is licensed under the MIT License. The license allows for free use, modification, and distribution of the software for any purpose, including commercial purposes, subject to the conditions listed below.
+
+### Terms of the MIT License
+
+Copyright (c) 2024 AyyaduraiAgalya
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+### Further Information
+
+For more details on the MIT License, please visit [MIT License Information](https://opensource.org/licenses/MIT).
+
