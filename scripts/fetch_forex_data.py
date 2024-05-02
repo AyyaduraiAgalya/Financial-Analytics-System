@@ -1,34 +1,48 @@
 import requests
+from requests.exceptions import HTTPError, ConnectionError, Timeout
 import pandas as pd
 from dotenv import load_dotenv
 import os
 import logging
 
-# Function to fetch EUR/USD data from OANDA API.
+# Function to fetch EUR/USD data from OANDA API
 def fetch_forex_data(api_key):
     """Fetches and returns historical daily forex data for EUR/USD from the OANDA API.
 
-    Args:
-        api_key (str): OANDA API key for authorisation.
+        Args:
+            api_key (str): OANDA API key for authorisation.
 
-    Returns:
-        pd.DataFrame: Dataframe containing the time and close prices for EUR/USD.
-    """
+        Returns:
+            pd.DataFrame: Dataframe containing the time and close prices for EUR/USD.
+        """
     # Define the API endpoint and set necessary headers and query parameters
     url = "https://api-fxpractice.oanda.com/v3/instruments/EUR_USD/candles"
-    headers = {'Authorization':f'Bearer {api_key}'}
+    headers = {'Authorization': f'Bearer {api_key}'}
     params = {
-        'count': 500, # Number of data points to fetch
-        'granularity': 'D' # Daily data
+        'count': 500,
+        'granularity': 'D'
     }
 
     # Make the API request and parse the response into JSON
     try:
         response = requests.get(url, headers=headers, params=params)
-        response.raise_for_status()
+        response.raise_for_status()  # Will raise an exception for HTTP errors
         data = response.json()
-    except requests.RequestException as e:
-        logging.error(f'Error fetching data:{e}')
+    except HTTPError as http_err:
+        # Handle specific HTTP errors based on status codes
+        status_code = http_err.response.status_code
+        if status_code == 400:
+            logging.error('Bad Request - Check your query parameters.')
+        elif status_code == 401:
+            logging.error('Unauthorized - Check your API key or authentication details.')
+        else:
+            logging.error(f'HTTP error occurred: {http_err}')
+        return None
+    except (ConnectionError, Timeout) as conn_err:
+        logging.error(f'Network error: {conn_err}')
+        return None
+    except Exception as err:
+        logging.error(f'An error occurred: {err}')
         return None
 
     # Extract prices and times into a DataFrame
@@ -36,6 +50,10 @@ def fetch_forex_data(api_key):
 
     # Convert the list of prices to a DataFrame,
     df = pd.DataFrame(prices)
+
+
+    # Ensure 'close' is a float
+    df['close'] = pd.to_numeric(df['close'], errors='coerce')
 
     # Convert time to datetime, and set as index
     df['time'] = pd.to_datetime(df['time'])
@@ -54,7 +72,6 @@ def clean_data(df):
         pd.DataFrame: The cleaned DataFrame.
     """
 
-    df['close'] = pd.to_numeric(df['close'], errors ='coerce') # Ensure 'close' is a float
     df.drop_duplicates(inplace=True)
     df.dropna(inplace=True) # Drop rows with any missing values
 
