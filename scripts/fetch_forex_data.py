@@ -1,3 +1,7 @@
+"""
+This module handles fetching forex data EURUSD and basic cleaning of the data
+"""
+
 import requests
 from requests.exceptions import HTTPError, ConnectionError, Timeout
 import pandas as pd
