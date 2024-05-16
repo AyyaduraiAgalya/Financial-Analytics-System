@@ -3,7 +3,7 @@ This module handles the database connection and session creation.
 """
 
 from sqlalchemy import create_engine, exc
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from dotenv import load_dotenv
 import logging
@@ -14,6 +14,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Load environment variables from .env file for database connection
 load_dotenv()
 
+
+Base = declarative_base()
 def get_database_url():
     """Construct the database URL from environment variables."""
     return f"postgresql+psycopg2://{os.getenv('DB_USER')}:" \
