@@ -11,17 +11,17 @@ The project aims to blend quantitative financial analysis with machine learning 
 - `/data` - Contains datasets used in the project, including historical EURUSD rates and economic indicators.
 - `/docs` - Documentation and additional resources related to the project.
 - `/models` - Predictive models developed for forecasting currency movements.
-- `/notebooks` - Jupyter notebooks for exploratory data analysis, model development, and visualization.
+- `/notebooks` - Jupyter notebooks for exploratory data analysis, model development, and visualisation.
 - `/scripts` - Automation scripts for data collection, preprocessing, and model evaluation.
 
 ## Key Features (Planned)
 
 The following key features are planned for implementation in this project. They are designed to provide comprehensive insights into forex market trends, particularly focusing on the EURUSD pair:
 
-- **Time Series Analysis**: Utilizing ARIMA and LSTM models to predict future forex rates based on historical data.
+- **Time Series Analysis**: Utilising ARIMA and LSTM models to predict future forex rates based on historical data.
 - **Sentiment Analysis**: Integrating sentiment analysis techniques to assess market sentiment from global financial news and its impact on forex prices.
 - **Economic Indicator Analysis**: Examining the influence of major economic announcements and indicators on forex markets.
-- **Data Visualization**: Developing interactive dashboards using Plotly/Dash for real-time data visualization and analysis.
+- **Data Visualisation**: Developing interactive dashboards using Plotly/Dash for real-time data visualisation and analysis.
 
 These features are in the planning stage and may evolve as the project progresses. Check back for updates as I advance through the development stages.
 
@@ -69,7 +69,7 @@ With your virtual environment activated, install the project dependencies by run
 pip install -r requirements.txt
 ```
 ### Environment Configuration
-To fully utilize the project's capabilities, set up necessary environment variables:
+To fully utilise the project's capabilities, set up necessary environment variables:
 
 1.Create a `.env` file in the project root:
 ```plaintext
@@ -79,7 +79,7 @@ type nul > .env  # Windows
 
 2. Add required environment variables to the `.env` file. For example:
 ```plaintext
-OANDA_API_KEY=your_actual_api_key_here
+OANDA_API_KEY='your_actual_api_key_here'
 ```
 Replace your_actual_api_key_here with the API key obtained from your data provider, such as OANDA.
 
@@ -91,7 +91,7 @@ python app.py
 This will launch the application according to the configurations specified in your environment variables and `.env` file.
 
 ## Contact
-- **Developer Contact**: As the sole developer and maintainer of this project, please direct any inquiries or feedback directly to me. You can reach me through my GitHub profile.
+**Developer Contact**: As the sole developer and maintainer of this project, please direct any inquiries or feedback directly to me. You can reach me through my GitHub profile.
 
 ## License
 

@@ -14,8 +14,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Load environment variables from .env file for database connection
 load_dotenv()
 
-Base = declarative_base()
 
+Base = declarative_base()
 def get_database_url():
     """Construct the database URL from environment variables."""
     return f"postgresql+psycopg2://{os.getenv('DB_USER')}:" \

@@ -1,3 +1,7 @@
+"""
+This module handles fetching forex data EURUSD and basic cleaning of the data
+"""
+
 import requests
 from requests.exceptions import HTTPError, ConnectionError, Timeout
 import pandas as pd
@@ -83,7 +87,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Main section to run if script is executed directly
 if __name__ == "__main__":
     load_dotenv()  # Load environment variables from .env file
-    api_key = os.getenv('OANDA_API_KEY')  # Replace 'OANDA_API_KEY' with your actual OANDA API key stored in the .env file
+    api_key = os.getenv('OANDA_API_KEY')  # 'OANDA_API_KEY' will be your actual OANDA API key stored in the .env file as per the setup instructions
     eurusd_data = fetch_forex_data(api_key)
     if eurusd_data is not None:
         eurusd_data = clean_data(eurusd_data)
