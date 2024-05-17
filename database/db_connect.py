@@ -33,7 +33,7 @@ def get_session():
     """Return a new session."""
     engine = get_engine()
     Session = sessionmaker(bind=engine)
-    return Session()
+    return Session
 
 def test_connection():
     """Test the database connection."""
