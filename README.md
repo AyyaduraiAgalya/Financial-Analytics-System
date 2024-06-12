@@ -28,8 +28,9 @@ These features are in the planning stage and may evolve as the project progresse
 ## Documentation
 This project is documented thoroughly to ensure ease of use and scalability. Below are links to detailed documentation on various components of the project:
 
-- [AWS RDS Setup Guide](docs/AWS-RDS-Setup.md): Detailed setup and configuration information for the Amazon RDS instance used in this project.
+- [AWS RDS Setup Guide](docs/AWS-RDS-Setup.md): Detailed setup and configuration information for the Amazon RDS instance used in this project (transitioned to free resources (local PostgreSQL) to manage costs while maintaining full project functionality).
 - [AWS S3 Setup Guide](docs/AWS-S3-Setup.md): Configuration details and security measures implemented for Amazon S3 storage used in the project.
+- [AWS Lambda Automate Data Fetching Documentation](docs/AWS-Lambda-Automate-Data-Fetching.md): Detailed documentation on the setup, implementation, and challenges faced with AWS Lambda for automating data fetching.
 
 ## Getting Started
 
@@ -79,16 +80,21 @@ type nul > .env  # Windows
 
 2. Add required environment variables to the `.env` file. For example:
 ```plaintext
-OANDA_API_KEY='your_actual_api_key_here'
+OANDA_API_KEY=your_actual_api_key_here
+DB_HOST=your_db_host
+DB_NAME=your_db_name
+DB_USER=your_db_user
+DB_PASS=your_db_password
+DB_PORT=your_db_port
 ```
-Replace your_actual_api_key_here with the API key obtained from your data provider, such as OANDA.
+Replace your_actual_api_key_here with the API key obtained from your data provider, such as OANDA. Also, update your db connection credentials.
 
 ### Running the application
-Once everything is set up, you can start the application by running:
+Once everything is set up, you can fetch the data by running:
 ```bash
-python app.py
+python fetch_data.py
 ```
-This will launch the application according to the configurations specified in your environment variables and `.env` file.
+This will fetch the data according to the configurations specified in your environment variables and `.env` file.
 
 ## Contact
 **Developer Contact**: As the sole developer and maintainer of this project, please direct any inquiries or feedback directly to me. You can reach me through my GitHub profile.
