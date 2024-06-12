@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 from datetime import datetime
 from sqlalchemy.exc import SQLAlchemyError
 from database.insert_data import record_exists, create_currency_data_record, insert_currency_data
-from database.schema.models import CurrencyData
+from database.schema.create_tables import CurrencyData
 import logging
 
 class TestInsertData(unittest.TestCase):

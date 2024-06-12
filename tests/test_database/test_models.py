@@ -2,7 +2,7 @@ import unittest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database.db_connect import Base
-from database.schema.models import CurrencyData, MovingAverage, Prediction
+from database.schema.create_tables import CurrencyData, MovingAverage, Prediction
 from datetime import datetime
 
 class TestModels(unittest.TestCase):

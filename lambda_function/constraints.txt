@@ -1,0 +1,2 @@
+psycopg2==none
+psycopg2-binary==none
