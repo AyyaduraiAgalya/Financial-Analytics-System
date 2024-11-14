@@ -43,14 +43,6 @@ This project is documented thoroughly to ensure ease of use and scalability. Bel
 ## Getting Started
 This section will guide you through the process of setting up your local environment to run the Advanced Financial Analytics System. Follow these instructions to get started.
 
-### Prerequisites
-
-Before you begin, ensure that you have Python installed on your system. You will also need several dependencies, which can be installed using the following command:
-
-```bash
-pip install -r requirements.txt
-```
-## Installation
 ### Clone the Repository
 Start by cloning the repository to your local machine. Replace `yourusername` with your GitHub username and adjust the repository name if it's different:
 
