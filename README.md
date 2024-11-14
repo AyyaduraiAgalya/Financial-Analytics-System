@@ -41,7 +41,6 @@ This project is documented thoroughly to ensure ease of use and scalability. Bel
 - [AWS Lambda Automate Data Fetching Documentation](docs/AWS-Lambda-Automate-Data-Fetching.md): Documentation on data fetching automation, initially implemented in AWS Lambda but will be replaced by a manual trigger due to cost considerations.
 
 ## Getting Started
-
 This section will guide you through the process of setting up your local environment to run the Advanced Financial Analytics System. Follow these instructions to get started.
 
 ### Prerequisites
