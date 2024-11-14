@@ -46,11 +46,11 @@ cd Financial-Analytics-System
 
 ```bash
 # Unix/macOS
-python3 -m venv venv
+python3.12 -m venv venv
 source venv/bin/activate
 
 # Windows
-python -m venv venv
+python3.12 -m venv venv
 venv\Scripts\activate
 ```
 
@@ -99,30 +99,10 @@ python scripts/fetch_insert_moving_avg.py
 2. **Inserting Raw Data into Database**
    - **Table**: `currency_data`
    - **Process**: `insert_currency_data` function inserts records into the `currency_data` table with a structure that includes currency pair, timestamp, open, high, low, close, and volume.
-   - **Schema**:
-     ```python
-     class CurrencyData(Base):
-         id = Column(Integer, primary_key=True)
-         currency_pair = Column(String, nullable=False)
-         timestamp = Column(DateTime, nullable=False)
-         open = Column(Float, nullable=False)
-         high = Column(Float, nullable=False)
-         low = Column(Float, nullable=False)
-         close = Column(Float, nullable=False)
-         volume = Column(Float, nullable=False)
-     ```
 
 3. **Calculating Moving Averages**
    - **Description**: The `calculate_moving_averages` function calculates both short-term (5-day) and long-term (50-day) moving averages.
-   - **Schema**:
-     ```python
-     class MovingAverage(Base):
-         id = Column(Integer, primary_key=True)
-         currency_data_id = Column(Integer, ForeignKey('currency_data.id'), nullable=False)
-         timestamp = Column(DateTime, nullable=False)
-         window_size = Column(Integer, nullable=False)
-         moving_average = Column(Float, nullable=False)
-     ```
+   - **Table**: `moving_average`
 
 ### Data Refresh and Update
 
@@ -130,9 +110,32 @@ python scripts/fetch_insert_moving_avg.py
 
 **Dash Refresh Button**: A refresh button in the Dash app allows users to update data and moving averages, adding interactivity without automated scheduling.
 
-## Summary
+## LSTM Model for Time Series Forecasting
 
-This pipeline handles data retrieval, moving average calculation, and storage in a streamlined, efficient workflow. Data is stored in a PostgreSQL database, making it readily available for visualisation in the Dash app.
+### Model Training and Evaluation
+
+- **Description**: An LSTM model was trained to forecast EURUSD closing prices.
+- **Data Preparation**: Data was prepared by scaling and reshaping to fit the LSTM’s expected input format.
+- **Model Architecture**: The LSTM model was structured with layers to capture time-dependent patterns.
+- **Evaluation Metrics**:
+  - **RMSE** (Root Mean Squared Error): Measures average error magnitude.
+  - **MAE** (Mean Absolute Error): Indicates average absolute error.
+
+### Results
+
+The LSTM model demonstrated effective learning with the following metrics:
+- **RMSE**: 0.0111
+- **MAE**: 0.0091
+
+### Scripts for Model Workflow
+
+1. **Data Preparation**: Prepares data for training.
+2. **LSTM Model Definition**: Defines and compiles the LSTM model.
+3. **Model Training and Evaluation**: Trains the model, evaluates, and saves it.
+
+### Visualization of Training Progress
+
+The model’s loss over training epochs was plotted, revealing convergence and generalization patterns.
 
 ## License
 

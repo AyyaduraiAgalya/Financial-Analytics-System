@@ -4,3 +4,6 @@ psycopg2-binary
 requests
 pandas
 dash
+scikit-learn
+matplotlib
+tensorflow
