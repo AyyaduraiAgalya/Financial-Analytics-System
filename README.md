@@ -133,9 +133,9 @@ The LSTM model demonstrated effective learning with the following metrics:
 2. **LSTM Model Definition**: Defines and compiles the LSTM model.
 3. **Model Training and Evaluation**: Trains the model, evaluates, and saves it.
 
-### Visualization of Training Progress
+### Visualisation of Training Progress
 
-The model’s loss over training epochs was plotted, revealing convergence and generalization patterns.
+The model’s loss over training epochs was plotted, revealing convergence and generalisation patterns.
 
 ## License
 
