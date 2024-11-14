@@ -3,11 +3,10 @@ This module handles the insertion of currency data into the database.
 """
 
 from datetime import datetime
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
-from database.db_connect import get_session, get_engine
+from database.db_connect import get_session
 from database.schema.create_tables import CurrencyData
-from database.fetch_data import fetch_data
+from scripts.fetch_data import fetch_data
 import logging
 
 def record_exists(session, currency_pair, timestamp):

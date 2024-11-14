@@ -6,7 +6,7 @@ def migrate_database():
     """
     Migrate the database schema.
 
-    This function initializes the database schema based on the defined models
+    This function initialises the database schema based on the defined models
     by creating the necessary tables.
     """
     engine = get_engine()
