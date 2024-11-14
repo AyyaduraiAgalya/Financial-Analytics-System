@@ -19,7 +19,7 @@ def fetch_forex_data(api_key):
         Returns:
             pd.DataFrame: Dataframe containing the time and close prices for EUR/USD.
         """
-    # Define the API endpoint and set necessary headers and query parameters
+    # Defining the API endpoint and set necessary headers and query parameters
     url = "https://api-fxpractice.oanda.com/v3/instruments/EUR_USD/candles"
     headers = {'Authorization': f'Bearer {api_key}'}
     params = {
@@ -27,13 +27,13 @@ def fetch_forex_data(api_key):
         'granularity': 'D'
     }
 
-    # Make the API request and parse the response into JSON
+    # Making the API request and parse the response into JSON
     try:
         response = requests.get(url, headers=headers, params=params)
         response.raise_for_status()  # Will raise an exception for HTTP errors
         data = response.json()
     except HTTPError as http_err:
-        # Handle specific HTTP errors based on status codes
+        # Handling specific HTTP errors based on status codes
         status_code = http_err.response.status_code
         if status_code == 400:
             logging.error('Bad Request - Check your query parameters.')
@@ -49,17 +49,17 @@ def fetch_forex_data(api_key):
         logging.error(f'An error occurred: {err}')
         return None
 
-    # Extract prices and times into a DataFrame
+    # Extracting prices and times into a DataFrame
     prices = [{'time': x['time'], 'close': x['mid']['c']} for x in data['candles']]
 
-    # Convert the list of prices to a DataFrame,
+    # Converting the list of prices to a DataFrame,
     df = pd.DataFrame(prices)
 
 
-    # Ensure 'close' is a float
+    # Ensuring 'close' is a float
     df['close'] = pd.to_numeric(df['close'], errors='coerce')
 
-    # Convert time to datetime, and set as index
+    # Converting time to datetime, and set as index
     df['time'] = pd.to_datetime(df['time'])
     df.set_index('time', inplace=True)
 
@@ -86,7 +86,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Main section to run if script is executed directly
 if __name__ == "__main__":
-    load_dotenv()  # Load environment variables from .env file
+    load_dotenv()  # Loading environment variables from .env file
     api_key = os.getenv('OANDA_API_KEY')  # 'OANDA_API_KEY' will be your actual OANDA API key stored in the .env file as per the setup instructions
     eurusd_data = fetch_forex_data(api_key)
     if eurusd_data is not None:

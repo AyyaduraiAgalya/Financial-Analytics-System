@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from database.fetch_data import fetch_data
+from scripts.fetch_data import fetch_data
 
 class TestFetchData(unittest.TestCase):
 
