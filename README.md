@@ -97,7 +97,7 @@ To set up and run the Financial Analytics System, follow these steps:
 1. **Step 1: Database Table Setup**
    - Run `migrate.py` to create the necessary tables in your PostgreSQL database. This step ensures all required tables are created before data insertion and analysis.
    ```bash
-   python scripts/database/migrate.py
+   python database/schema/migrate.py
    ```
 
 2. **Step 2: Data Fetching and Moving Average Calculation**

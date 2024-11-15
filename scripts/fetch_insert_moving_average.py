@@ -74,7 +74,7 @@ def insert_currency_and_moving_avg_data(data):
         session.bulk_save_objects(moving_avg_records)
         session.commit()
         logging.info(
-            f"Inserted {len(new_records)} currency data records and {len(moving_avg_records)} moving average records.")
+            f"Inserted {len(moving_avg_records)} moving average records.")
 
     except SQLAlchemyError as e:
         session.rollback()
