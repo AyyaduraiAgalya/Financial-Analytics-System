@@ -1,22 +1,35 @@
 
-# Advanced Financial Analytics System
+# Financial Analytics System (FAS)
 
-Welcome to the Advanced Financial Analytics System, designed to provide deep insights into financial markets, with a particular focus on forex markets. This project leverages historical data and economic indicators to forecast movements in forex rates, especially the EURUSD pair, and integrates financial news sentiment to enhance predictions.
+Welcome to the Financial Analytics System, a project designed to provide in-depth insights into financial markets, with a particular focus on forex markets. Initially, this project was built as an **Integrated Financial Analytics System (IFAS)**, leveraging AWS for data management and automation. As the project evolved, it transitioned to free cloud resources while retaining its analytical depth and functionality.
 
 ## Project Overview
 
-This project aims to blend quantitative financial analysis with machine learning and data science techniques to predict forex market trends and provide actionable insights. The system focuses on the EURUSD currency pair, exploring correlations between macroeconomic indicators and market movements.
+This project blends quantitative financial analysis, machine learning, and data science techniques to predict forex market trends and deliver actionable insights, focusing on the EURUSD currency pair and exploring correlations with macroeconomic indicators.
+
+## Project History: AWS Integration and Transition
+
+Initially, the project utilised AWS RDS, EC2, and Lambda for data automation and management. As AWS free tier limits were reached, we migrated to **Neon** for cost-effective database management without sacrificing key features. Here’s a summary of AWS integration efforts:
+
+1. **AWS RDS for PostgreSQL**: Configured a PostgreSQL instance to store forex data and analysis results securely.
+2. **OpenVPN on AWS EC2**: Set up a secure OpenVPN server on EC2 for remote access to the RDS instance, managing TLS certificates, and firewall rules.
+3. **AWS Lambda for Automated Data Fetching**: Developed a Lambda function to automate weekly EURUSD data fetches, though integration challenges with `psycopg2` led to a transition away from Lambda.
 
 ## Transition to Free Cloud Database Solution
 
-Originally, this project used Amazon RDS for PostgreSQL, but to minimize costs, it was transitioned to **Neon**, a free cloud-based PostgreSQL alternative. This change ensures accessibility without compromising on features or data integrity.
+To keep the project cost-effective, it transitioned to **Neon**, a free cloud-based PostgreSQL alternative, for efficient data storage and management without ongoing AWS costs. Automated data fetching will be replaced with a **refresh button** in the Dash app for user-controlled updates.
+
+## Project Management and Workflow
+
+- **Jira Integration**: This project uses **Jira** to manage tasks and track project progress. Tickets are created for each feature or bug fix, and branches, commits, and pull requests are managed directly through Jira’s integration with GitHub. This setup follows Agile practices, ensuring each project stage is well-documented, traceable, and efficient.
+- **GitHub Integration**: With GitHub linked to Jira, each ticket is associated with specific GitHub branches, enabling seamless tracking of code changes related to Jira tasks.
 
 ## Project Structure
 
-- `/database` - Database connection and schema for creating tables.
-- `/docs` - Documentation and additional resources.
-- `/scripts` - Scripts for data collection, processing, and model evaluation.
-  
+- `/database`: Database connection and schema for creating tables.
+- `/docs`: Documentation and additional resources.
+- `/scripts`: Scripts for data collection, processing, and model evaluation.
+
 ## Key Features (Planned)
 
 1. **Time Series Analysis**: Forecasting forex rates with ARIMA and LSTM models.
@@ -24,11 +37,9 @@ Originally, this project used Amazon RDS for PostgreSQL, but to minimize costs, 
 3. **Economic Indicator Analysis**: Assessing impacts of key economic indicators.
 4. **Data Visualisation**: Interactive dashboards for real-time analysis.
 
-These features may evolve as the project progresses.
-
 ## Documentation
 
-For additional details on setup and configuration:
+For details on AWS setup and configuration (historical):
 - [AWS RDS Setup Guide](docs/AWS-RDS-Setup.md)
 - [AWS S3 Setup Guide](docs/AWS-S3-Setup.md)
 - [AWS Lambda Data Fetching Documentation](docs/AWS-Lambda-Automate-Data-Fetching.md)
@@ -78,11 +89,35 @@ pip install -r requirements.txt
    DB_PORT=5432  # Default for PostgreSQL
    ```
 
+
 ### Running the Application
 
-```bash
-python scripts/fetch_insert_moving_avg.py
-```
+To set up and run the Financial Analytics System, follow these steps:
+
+1. **Step 1: Database Table Setup**
+   - Run `migrate.py` to create the necessary tables in your PostgreSQL database. This step ensures all required tables are created before data insertion and analysis.
+   ```bash
+   python scripts/database/migrate.py
+   ```
+
+2. **Step 2: Data Fetching and Moving Average Calculation**
+   - Run `fetch_insert_moving_avg.py` to:
+     - Fetch the latest EURUSD data from the OANDA API.
+     - Insert the raw data into the `currency_data` table.
+     - Calculate both short-term (5-day) and long-term (50-day) moving averages.
+     - Insert the calculated moving averages into the `moving_average` table.
+   ```bash
+   python scripts/fetch_insert_moving_avg.py
+   ```
+
+3. **Step 3: LSTM Model Training and Evaluation**
+   - Run `train_and_evaluate.py` under `time_series_forecasting/` to train the LSTM model on the EURUSD data, evaluate its performance, and calculate key metrics like RMSE and MAE.
+   - This script will use the data in the database, train the LSTM model, and output evaluation metrics for further analysis.
+   ```bash
+   python scripts/time_series_forecasting/d_train_and_evaluate.py
+   ```
+
+Following these steps will allow you to fully initialise the system, populate the database with historical forex data, calculate essential analytics, and train a time-series forecasting model.
 
 ## Data Pipeline: Fetching Forex Data and Calculating Moving Averages
 
@@ -90,52 +125,40 @@ python scripts/fetch_insert_moving_avg.py
 
 1. **Fetching EURUSD Data from OANDA API**
    - **Description**: `fetch_ohlc_data` connects to the OANDA API to retrieve daily OHLC (Open, High, Low, Close) data for EURUSD.
-   - **Parameters**:
-     - `currency_pair`: EURUSD.
-     - `count`: Number of historical data points.
-     - `from_time`: Fetches data from this timestamp onward, if provided.
-   - **Usage**: On the first run, fetches the last 100 days. On subsequent runs, only new data is fetched.
+   - **Usage**: Fetches the latest data and integrates it with the historical dataset.
 
 2. **Inserting Raw Data into Database**
    - **Table**: `currency_data`
-   - **Process**: `insert_currency_data` function inserts records into the `currency_data` table with a structure that includes currency pair, timestamp, open, high, low, close, and volume.
+   - **Process**: Inserts records into the `currency_data` table, capturing open, high, low, close, and volume data.
 
 3. **Calculating Moving Averages**
-   - **Description**: The `calculate_moving_averages` function calculates both short-term (5-day) and long-term (50-day) moving averages.
-   - **Table**: `moving_average`
-
-### Data Refresh and Update
-
-**Daily Update**: The script can be configured to run daily, adding the latest EURUSD data and updating moving averages.
-
-**Dash Refresh Button**: A refresh button in the Dash app allows users to update data and moving averages, adding interactivity without automated scheduling.
+   - **Description**: Calculates short-term (5-day) and long-term (50-day) moving averages, storing results in the `moving_average` table.
 
 ## LSTM Model for Time Series Forecasting
 
 ### Model Training and Evaluation
 
 - **Description**: An LSTM model was trained to forecast EURUSD closing prices.
-- **Data Preparation**: Data was prepared by scaling and reshaping to fit the LSTM’s expected input format.
-- **Model Architecture**: The LSTM model was structured with layers to capture time-dependent patterns.
 - **Evaluation Metrics**:
-  - **RMSE** (Root Mean Squared Error): Measures average error magnitude.
-  - **MAE** (Mean Absolute Error): Indicates average absolute error.
-
-### Results
-
-The LSTM model demonstrated effective learning with the following metrics:
-- **RMSE**: 0.0111
-- **MAE**: 0.0091
-
-### Scripts for Model Workflow
-
-1. **Data Preparation**: Prepares data for training.
-2. **LSTM Model Definition**: Defines and compiles the LSTM model.
-3. **Model Training and Evaluation**: Trains the model, evaluates, and saves it.
+  - **RMSE** (Root Mean Squared Error)
+  - **MAE** (Mean Absolute Error)
 
 ### Visualisation of Training Progress
 
-The model’s loss over training epochs was plotted, revealing convergence and generalisation patterns.
+The model’s training and validation loss curves provide insights into convergence and generalisation.
+
+## Results
+
+The LSTM model achieved promising accuracy with the following metrics:
+- **RMSE**: 0.0111
+- **MAE**: 0.0091
+
+## Future Enhancements
+
+- **Advanced Threshold and Hyperparameter Tuning**: For the Logistic Regression and LSTM models.
+- **Distributed Machine Learning**: Extend to PySpark MLlib for training at scale.
+- **Dashboard Visualisation**: A Tableau dashboard to visualise advanced analytics and insights.
+- **A/B Testing**: Framework for real-world model performance testing.
 
 ## License
 

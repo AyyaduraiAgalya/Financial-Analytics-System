@@ -15,14 +15,14 @@ def evaluate_model(model, X_test, y_test, scaler):
     Returns:
         dict: Dictionary containing RMSE and MAE scores.
     """
-    # Make predictions
+    # Making predictions
     y_pred_scaled = model.predict(X_test)
 
     # Inverse scale the predictions and true values
     y_pred = scaler.inverse_transform(y_pred_scaled)
     y_true = scaler.inverse_transform(y_test.reshape(-1, 1))
 
-    # Calculate metrics
+    # Calculating metrics
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     mae = mean_absolute_error(y_true, y_pred)
 

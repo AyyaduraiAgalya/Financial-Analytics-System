@@ -11,7 +11,7 @@ def get_db_connection():
     """
     Establishes a connection to the database.
     """
-    # Load environment variables from .env file for database connection
+    # Loading environment variables from .env file for database connection
     load_environment()
     db_user = os.getenv('DB_USER')
     db_password = os.getenv('DB_PASS')
@@ -48,7 +48,7 @@ def fetch_data(currency_pair='EUR/USD', look_back_days=100):
     """
     data = pd.read_sql(query, engine)
     print(data)
-    engine.dispose()  # Close the database connection
+    engine.dispose()  # Closing the database connection
     return data
 
 
@@ -124,23 +124,23 @@ def main():
     Returns:
         X_train, X_test, y_train, y_test, scaler: Prepared and split data for LSTM and scaler.
     """
-    # Step 1: Fetch data
+    # Step 1: Fetching data
     data = fetch_data()
     print("Data fetched successfully.")
 
-    # Step 2: Scale data
+    # Step 2: Scaling data
     data, scaler = scale_data(data)
     print("Data scaled successfully.")
 
-    # Step 3: Prepare data for LSTM
+    # Step 3: Preparing data for LSTM
     X, y = prepare_data_for_lstm(data)
     print(f"Shape of X: {X.shape}, Shape of y: {y.shape}")
 
-    # Step 4: Split data
+    # Step 4: Splitting data
     X_train, X_test, y_train, y_test = split_data(X, y)
     print("Data split into training and testing sets.")
 
-    # Step 5: Reshape data for LSTM
+    # Step 5: Reshaping data for LSTM
     X_train = reshape_for_lstm(X_train)
     X_test = reshape_for_lstm(X_test)
     print("Data reshaped for LSTM input.")

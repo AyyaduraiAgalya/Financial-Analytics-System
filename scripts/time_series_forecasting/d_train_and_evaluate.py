@@ -1,6 +1,6 @@
-from data_preparation import main as prepare_data
-from lstm_model import create_lstm_model
-from evaluate_model import evaluate_model
+from a_data_preparation import main as prepare_data
+from b_lstm_model import create_lstm_model
+from c_evaluate_model import evaluate_model
 from tensorflow.keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
 
@@ -22,14 +22,14 @@ def train_and_evaluate():
     """
     Full pipeline to train and evaluate the LSTM model.
     """
-    # Step 1: Prepare data
+    # Step 1: Preparing data
     X_train, X_test, y_train, y_test, scaler = prepare_data()
 
-    # Step 2: Build LSTM model
+    # Step 2: Building LSTM model
     input_shape = (X_train.shape[1], X_train.shape[2])
     model = create_lstm_model(input_shape)
 
-    # Step 3: Train model with early stopping
+    # Step 3: Training model with early stopping
     early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
     history = model.fit(
         X_train, y_train,
@@ -40,13 +40,13 @@ def train_and_evaluate():
         verbose=1
     )
 
-    # Step 4: Plot training history
+    # Step 4: Plotting training history
     plot_training_history(history)
 
-    # Step 5: Evaluate the model
+    # Step 5: Evaluating the model
     evaluation_metrics = evaluate_model(model, X_test, y_test, scaler)
 
-    # Save the model
+    # Saving the model
     model.save("models/lstm_model.h5")
     print("Model saved as 'models/lstm_model.h5'")
 
