@@ -43,6 +43,8 @@ For details on AWS setup and configuration (historical):
 - [AWS RDS Setup Guide](docs/AWS-RDS-Setup.md)
 - [AWS S3 Setup Guide](docs/AWS-S3-Setup.md)
 - [AWS Lambda Data Fetching Documentation](docs/AWS-Lambda-Automate-Data-Fetching.md)
+- [AWS EC2 OpenVPN Setup Guide](docs/AWS-EC2-OpenVPN-setup.md)
+- [AWS Services Integration with FAS](docs/AWS-Services-Integration.md)
 
 ## Getting Started
 
