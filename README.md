@@ -9,7 +9,7 @@ This project blends quantitative financial analysis, machine learning, and data 
 
 ## Project History: AWS Integration and Transition
 
-Initially, the project utilised AWS RDS, EC2, and Lambda for data automation and management. As AWS free tier limits were reached, we migrated to **Neon** for cost-effective database management without sacrificing key features. Here’s a summary of AWS integration efforts:
+Initially, the project utilised AWS RDS, EC2, and Lambda for data automation and management. As AWS free tier limits were reached, it was migrated to **Neon** for cost-effective database management without sacrificing key features. Here’s a summary of AWS integration efforts:
 
 1. **AWS RDS for PostgreSQL**: Configured a PostgreSQL instance to store forex data and analysis results securely.
 2. **OpenVPN on AWS EC2**: Set up a secure OpenVPN server on EC2 for remote access to the RDS instance, managing TLS certificates, and firewall rules.
